@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  --purple: hsl(259, 100%, 65%);
+  --light-red: hsl(0, 100%, 67%);
+  --white: hsl(0, 0%, 100%);
+  --off-white: hsl(0, 0%, 94%);
+  --light-grey: hsl(0, 0%, 86%);
+  --smokey-grey: hsl(0, 1%, 44%);
+  --off-black: hsl(0, 0%, 8%);
+  --font-size: 32px;
+}
+
+body{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--off-white);
+  font-size: var(--font-size);
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.container{
+  width: 75%;
+  background-color: var(--white);
+  padding: 50px;
+  border-radius: 15px;
+  border-bottom-right-radius: 100px;
+}
+
+form{
+  position: relative;
+  display: flex;
+}
+
+form input{
+  width: 100px;
+  height: 50px;
+  border: 2px solid var(--light-grey);
+  color: var(--off-black);
+  border-radius: 5px;
+  margin-right: 25px;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.error-message{
+  color: red;
+  font-size: 10px;
+  margin-top: 5px;
+  display: block;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+form label{
+  display: block;
+  font-weight: bold;
+  font-size: 10px;
+  color: var(--smokey-grey);
+  letter-spacing: 1px;
+}
+
+.horizontal-line{
+  margin-top: 30px;
+  border: 0.1px solid var(--light-grey);
+  width: 90%;
+}
+
+#submit-btn{
+  position: absolute;
+  right: -5px;
+  bottom: -56px;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: var(--off-black);
+  border: none;
+  background-color: var(--purple);
+}
+
+#submit-btn:hover{
+  background-color: var(--off-black);
+}
+
+form svg{
+  width: 30px;
+  height: 30px;
+}
+
+.result{
+  margin-top: 20px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.result-display{
+  color: var(--purple);
+}
+
+.result h1{
+  margin-bottom: -20px;
+}
