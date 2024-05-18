@@ -1,6 +1,6 @@
-const dayEl = document.getElementById("day-el");
-const monthEl = document.getElementById("month-el");
-const yearEl = document.getElementById("year-el");
+const dayInput = document.getElementById("day-el");
+const monthInput = document.getElementById("month-el");
+const yearInput = document.getElementById("year-el");
 const dayDisplay = document.getElementById("day-display");
 const monthDisplay = document.getElementById('month-display');
 const yearDisplay = document.getElementById('year-display');
@@ -21,23 +21,36 @@ let isEmptyError = false;
 form.addEventListener("submit", (e) => e.preventDefault())
 
 submitBtn.addEventListener("click", () => {
-  errorEmptyInput(dayEl);
-  errorEmptyInput(monthEl);
-  errorEmptyInput(yearEl);
+  errorEmptyInput(dayInput);
+  errorEmptyInput(monthInput);
+  errorEmptyInput(yearInput);
   errorInvalidInput();
   calculateAge();
-  console.log("Button clicked");
 })
 
 
 const calculateAge = () => {
   if (!isEmptyError && !isInvalidError) {
-    yearAge = currentYear - Number(yearEl.value) - 1;
-    if (Number(monthEl.value) > currentMonth) {
-      
+    yearAge = currentYear - Number(yearInput.value) - 1;
+    monthAge = currentMonth + (12 - Number(monthInput.value));
+    // dayAge = currentDay;
+    if (currentDay > Number(dayInput.value)) {
+      monthAge--;
+      dayAge = 31 - (currentDay - Number(dayInput));
+    } else if (currentDay <= Number(dayInput.value)) {
+      dayAge = Number(dayInput.value) - currentDay;
     }
-    monthAge = currentMonth;
-    dayAge = currentDay;
+
+    if (dayAge > 31) {
+      monthAge++;
+      dayAge = dayAge - 31;
+    }
+
+    if (monthAge >= 12) {
+      yearAge++;
+      monthAge = monthAge - 12;
+    }
+
     dayDisplay.textContent = dayAge;
     monthDisplay.textContent = monthAge;
     yearDisplay.textContent = yearAge;
@@ -46,23 +59,23 @@ const calculateAge = () => {
 
 /* CHECKS IF THE INPUTS ARE VALID */
 const errorInvalidInput = () => {
-  if (Number(dayEl.value) > 31 || Number(dayEl.value) <= 0) {
+  if (Number(dayInput.value) > 31 || Number(dayInput.value) <= 0) {
     isInvalidError = true;
     document.getElementById("day-el-label").style.color = '#FF0000';
-    dayEl.style.borderColor = '#FF0000';
+    dayInput.style.borderColor = '#FF0000';
     document.getElementById("day-el-error").textContent = 'Must be a valid day';
   }
-  if (Number(monthEl.value) > 12 || Number(monthEl.value) <= 0) {
+  if (Number(monthInput.value) > 12 || Number(monthInput.value) <= 0) {
     isInvalidError = true;
     document.getElementById("month-el-label").style.color = '#FF0000';
-    monthEl.style.borderColor = '#FF0000';
+    monthInput.style.borderColor = '#FF0000';
     document.getElementById('month-el-error').textContent =
       'Must be a valid month';
   }
-  if (Number(yearEl.value) > currentYear) {
+  if (Number(yearInput.value) > currentYear) {
     isInvalidError = true;
     document.getElementById("year-el-label").style.color = '#FF0000';
-    yearEl.style.borderColor = '#FF0000';
+    yearInput.style.borderColor = '#FF0000';
     document.getElementById('year-el-error').textContent = 'Must be in the past';
   }
 }

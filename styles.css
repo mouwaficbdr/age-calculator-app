@@ -30,7 +30,7 @@ body{
 }
 
 .container{
-  width: 75%;
+  width: 480px;
   background-color: var(--white);
   padding: 50px;
   border-radius: 15px;
@@ -115,4 +115,66 @@ form svg{
 
 .result h1{
   margin-bottom: -20px;
+}
+
+@media only screen and (max-width: 700px){
+  .container{
+    width: 450px;
+  }
+
+  .result h1{
+    font-size: 50px;
+  }
+}
+
+@media only screen and (max-width: 500px){
+  .container{
+    width: 380px;
+  }
+
+  .result h1{
+    font-size: 50px;
+  }
+
+  form input{
+      width: 70px;
+      height: 40px;
+      margin-right: 5px;
+      margin-bottom: 10px;
+      padding: 7px;
+      font-size: 16px;
+    }
+
+    .result h1{
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 375px){
+  .container{
+    width: 300px;
+  }
+  .result h1{
+    font-size: 35px;
+    margin-bottom: 10px;
+  }
+
+    form input{
+      width: 70px;
+      height: 40px;
+      margin-right: 5px;
+      margin-bottom: 10px;
+      padding: 7px;
+      font-size: 16px;
+    }
+
+    .horizontal-line{
+      width: 220px;
+    }
+
+    #submit-btn{
+      right: 65px;
+    }
+
 }
