@@ -9,7 +9,7 @@ const form = document.getElementById("form");
 
 const date = new Date();
 const currentDay = date.getDate();
-const currentMonth = date.getMonth() + 1;
+const currentMonth = date.getMonth();
 const currentYear = date.getFullYear();
 let yearAge;
 let monthAge;
@@ -31,24 +31,23 @@ submitBtn.addEventListener("click", () => {
 
 const calculateAge = () => {
   if (!isEmptyError && !isInvalidError) {
-    yearAge = currentYear - Number(yearInput.value) - 1;
-    monthAge = currentMonth + (12 - Number(monthInput.value));
-    // dayAge = currentDay;
-    if (currentDay > Number(dayInput.value)) {
-      monthAge--;
-      dayAge = 31 - (currentDay - Number(dayInput));
-    } else if (currentDay <= Number(dayInput.value)) {
-      dayAge = Number(dayInput.value) - currentDay;
+    yearAge = currentYear - parseInt(yearInput.value);
+    monthAge = currentMonth - (parseInt(monthInput.value) - 1);
+    dayAge = currentDay - parseInt(dayInput.value);
+
+    if (monthAge < 0 || (monthAge === 0 && dayAge < 0)) {
+      yearAge--;
     }
 
-    if (dayAge > 31) {
+    if (monthAge < 0) {
+      monthAge += 12;
+    }
+
+    if (dayAge < 0) {
+      const pastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+      const maxDays = new Date(currentYear, pastMonth + 1, 0).getDate();
+      dayAge += maxDays;
       monthAge++;
-      dayAge = dayAge - 31;
-    }
-
-    if (monthAge >= 12) {
-      yearAge++;
-      monthAge = monthAge - 12;
     }
 
     dayDisplay.textContent = dayAge;
