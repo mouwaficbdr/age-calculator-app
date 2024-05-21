@@ -21,9 +21,7 @@ let isEmptyError = false;
 form.addEventListener("submit", (e) => e.preventDefault())
 
 submitBtn.addEventListener("click", () => {
-  errorEmptyInput(dayInput);
-  errorEmptyInput(monthInput);
-  errorEmptyInput(yearInput);
+  [dayInput, monthInput, yearInput].forEach((input) => errorEmptyInput(input));
   errorInvalidInput();
   calculateAge();
 })
