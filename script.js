@@ -14,21 +14,13 @@ const currentYear = date.getFullYear();
 let yearAge;
 let monthAge;
 let dayAge;
-let isInvalidError = false;
-let isEmptyError = false;
-
-
-form.addEventListener("submit", (e) => e.preventDefault())
-
-submitBtn.addEventListener("click", () => {
-  [dayInput, monthInput, yearInput].forEach((input) => errorEmptyInput(input));
-  errorInvalidInput();
-  calculateAge();
-})
+let isInvalidError;
+let isEmptyError;
 
 
 const calculateAge = () => {
   if (!isEmptyError && !isInvalidError) {
+    clearErrors();
     yearAge = currentYear - parseInt(yearInput.value);
     monthAge = currentMonth - (parseInt(monthInput.value) - 1);
     dayAge = currentDay - parseInt(dayInput.value);
@@ -58,21 +50,22 @@ const calculateAge = () => {
 const errorInvalidInput = () => {
   if (Number(dayInput.value) > 31 || Number(dayInput.value) <= 0) {
     isInvalidError = true;
+    dayInput.classList.add("error");
     document.getElementById("day-el-label").style.color = '#FF0000';
-    dayInput.style.borderColor = '#FF0000';
     document.getElementById("day-el-error").textContent = 'Must be a valid day';
   }
   if (Number(monthInput.value) > 12 || Number(monthInput.value) <= 0) {
     isInvalidError = true;
+    monthInput.classList.add("error");
     document.getElementById("month-el-label").style.color = '#FF0000';
-    monthInput.style.borderColor = '#FF0000';
+    
     document.getElementById('month-el-error').textContent =
       'Must be a valid month';
   }
   if (Number(yearInput.value) > currentYear) {
     isInvalidError = true;
+    yearInput.classList.add("error");
     document.getElementById("year-el-label").style.color = '#FF0000';
-    yearInput.style.borderColor = '#FF0000';
     document.getElementById('year-el-error').textContent = 'Must be in the past';
   }
 }
@@ -84,7 +77,32 @@ const errorEmptyInput = (input) => {
   if (input.value === "") {
     isEmptyError = true;
     document.getElementById(labelId).style.color = '#FF0000';
-    input.style.borderColor = '#FF0000';
+    input.classList.add("error");
     document.getElementById(errorId).textContent = "This field is required";
   }
 }
+
+const clearErrors = () => {
+  
+  document.getElementById('day-el-label').style.color = '';
+  document.getElementById('month-el-label').style.color = '';
+  document.getElementById('year-el-label').style.color = '';
+
+  
+  document.getElementById('day-el-error').textContent = '';
+  document.getElementById('month-el-error').textContent = '';
+  document.getElementById('year-el-error').textContent = '';
+
+  
+  [dayInput, monthInput, yearInput].forEach((input) => input.classList.remove('error'));
+}
+
+form.addEventListener('submit', (e) => e.preventDefault());
+
+submitBtn.addEventListener('click', () => {
+  isInvalidError = false;
+  isEmptyError = false;  
+  [dayInput, monthInput, yearInput].forEach((input) => errorEmptyInput(input));
+  errorInvalidInput();
+  calculateAge();
+});
